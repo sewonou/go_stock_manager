@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les catégorie{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="#">Les Catégories</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifer une catégorie</li>
+        </ol>
+        <h6 class="slim-pagetitle">Modifier une catégorie</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        <div class="form-layout">
+            {{ include('category/_form.html.twig') }}
+        </div><!-- form-layout -->
+    </div><!-- section-wrapper -->
+{% endblock %}

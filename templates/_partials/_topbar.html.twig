@@ -1,0 +1,67 @@
+<div class="slim-navbar">
+    <div class="container">
+        <ul class="nav">
+            <li class="nav-item {#with-sub active#}">
+                <a class="nav-link" href="#{{ path('dashboard') }}>
+                    <i class="icon ion-ios-home-outline"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                {#<div class="sub-item">
+                    <ul>
+                        <li><a href="index.html">Dashboard 01</a></li>
+                        <li><a href="index2.html">Dashboard 02</a></li>
+                        <li><a href="index3.html">Dashboard 03</a></li>
+                        <li><a href="index4.html">Dashboard 04</a></li>
+                        <li><a href="index5.html">Dashboard 05</a></li>
+                    </ul>
+                </div><!-- sub-item -->#}
+            </li>
+            <li class="nav-item {#with-sub  mega-dropdown#}">
+                <a class="nav-link" href="{{ path('sale') }}">
+                    <i class="icon ion-ios-cart"></i>
+                    <span>Ventes</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="icon ion-ios-book-outline"></i>
+                    <span>Commandes</span>
+                </a>
+            </li>
+            <li class="nav-item with-sub">
+                <a class="nav-link" href="#" data-toggle="dropdown">
+                    <i class="icon ion-ios-box"></i>
+                    <span>Stocks</span>
+                </a>
+                <div class="sub-item">
+                    <ul>
+                        <li><a href="#">Enrtrée de stock</a></li>
+                        <li><a href="#">Sortie de stock</a></li>
+                        <li><a href="#">Etat du stock</a></li>
+                    </ul>
+                </div><!-- dropdown-menu -->
+            </li>
+            <li class="nav-item with-sub">
+                <a class="nav-link" href="#" data-toggle="dropdown">
+                    <i class="icon ion-ios-gear-outline"></i>
+                    <span> Catalogue</span>
+                </a>
+                <div class="sub-item">
+                    <ul>
+                        <li><a href="{{ path('category') }}">Catégorie</a></li>
+                        <li><a href="{{ path('supplier') }}">Fournisseurs</a></li>
+                        <li><a href="{{ path('product') }}">Produits</a></li>
+                    </ul>
+                </div><!-- dropdown-menu -->
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user') }}">
+                    <i class="icon ion-ios-people"></i>
+                    <span>Utilisateurs</span>
+                    <span class="square-8"></span>
+                </a>
+            </li>
+        </ul>
+    </div><!-- container -->
+</div><!-- slim-navbar -->

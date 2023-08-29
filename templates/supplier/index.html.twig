@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Fournisseurs{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="#">Les fournisseurs</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste des fournisseurs</li>
+        </ol>
+        <h6 class="slim-pagetitle">Les fournisseurs</h6>
+    </div><!-- slim-pageheader -->
+
+    <div class="section-wrapper">
+        <div class="row">
+            <div class="col-sm-10">
+                <label class="section-title">Liste des fournisseurs </label>
+            </div>
+            <div class="col-sm-2">
+                <a href="{{ path('supplier_add') }}" class="btn btn-primary btn-block mg-b-10"><i class="fa fa-plus mg-r-2"></i> Nouveau</a>
+            </div>
+        </div>
+        <p class="mg-b-20 mg-sm-b-40">Voici la liste complète des fournisseurs  de votre boutique</p>
+
+        <div class="table-wrapper">
+            <table id="user_data" class="table display responsive nowrap">
+                <thead>
+                <tr>
+                    <th class="wd-15p">id</th>
+                    <th class="wd-15p">Nom</th>
+                    <th class="wd-15p">Nom du contact</th>
+                    <th class="wd-15p">Téléphone</th>
+                    <th class="wd-15p">Nbre de commande</th>
+                    <th class="wd-15p">Commande en attente</th>
+                    <th class="wd-15p">Commande rejetté</th>
+                    <th class="wd-15p">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for supplier in data %}
+                    <tr style="align-items: center !important;">
+                        <td>
+                            {{ supplier.id }}
+                        </td>
+                        <td>{{ supplier.name }}</td>
+                        <td>{{ supplier.contact }}</td>
+                        <td>{{ supplier.phone }}</td>
+                        <td>{{ "00" }}</td>
+                        <td>{{ "00" }}</td>
+                        <td>{{ '00' }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a class="btn btn-secondary" href="{{ path('supplier_show', {'id': supplier.id}) }}"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-secondary" href="{{ path('supplier_edit', {'id': supplier.id}) }}"><i class="fa fa-pencil"></i></a>
+                                <a class="btn btn-danger" href="{{ path('supplier_delete', {'id': supplier.id}) }}" onclick="return confirm('Voulez vous vraiment supprimer {{ supplier.name }}')"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- table-wrapper -->
+    </div><!-- section-wrapper -->
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function(){
+            'use strict';
+
+            $('#user_data').DataTable({
+                bLengthChange: false,
+                searching: false,
+                responsive: true
+            });
+
+        });
+
+        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+    </script>
+{% endblock %}

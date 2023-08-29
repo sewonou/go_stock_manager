@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="#">Les Utilisateurs</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifer un utilisateur</li>
+        </ol>
+        <h6 class="slim-pagetitle">Modifier un utilisateur</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        <div class="form-layout">
+            {{ include('user/_form.html.twig') }}
+        </div><!-- form-layout -->
+    </div><!-- section-wrapper -->
+{% endblock %}
+{% block javascripts %}
+    <script>
+        const imageInput = document.getElementById('user_imageFile');
+        const selectedImage = document.getElementById('selectedImage');
+
+        imageInput.addEventListener('change', function () {
+            const file = imageInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+                    selectedImage.src = event.target.result;
+                    //selectedImage.style.display = 'block';
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+{% endblock %}
+

@@ -1,16 +1,70 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>GSM : {% block title %}{% endblock %}</title>
+        <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+        <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+        <!-- vendor css -->
+        <link href="{{ asset('assets/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/lib/chartist/css/chartist.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/lib/rickshaw/css/rickshaw.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}" rel="stylesheet">
         {% block stylesheets %}
         {% endblock %}
+        <link href="{{ asset('assets/lib/datatables/css/jquery.dataTables.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/lib/select2/css/select2.min.css') }}" rel="stylesheet">
+        <!-- Slim CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/css/slim.css') }}">
+
+
+
+    </head>
+    <body >
+        {{ include('_partials/_navbar.html.twig') }}
+        {{ include('_partials/_topbar.html.twig') }}
+        <div class="slim-body">
+            {#{{ include('_partials/_sidebar.html.twig') }}#}
+            <div class="slim-mainpanel">
+                <div class="container">
+                    {% for label, messages in app.flashes %}
+                        <div class="container">
+                            <div class="alert alert-{{ label }}">
+                                {% for message in messages %}
+                                    <button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true"> &times; </span></button>
+                                    <p>{{ message | raw }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% block body %}{% endblock %}
+                </div>
+                {{ include('_partials/_footer.html.twig') }}
+            </div>
+
+        </div>
+
+        <script src="{{ asset('assets/lib/jquery/js/jquery.js') }}"></script>
+        <script src="{{ asset('assets/lib/popper.js/js/popper.js') }}"></script>
+        <script src="{{ asset('assets/lib/bootstrap/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('assets/lib/jquery.cookie/js/jquery.cookie.js') }}"></script>
+        <script src="{{ asset('assets/lib/chartist/js/chartist.js') }}"></script>
+        <script src="{{ asset('assets/lib/d3/js/d3.js') }}"></script>
+        <script src="{{ asset('assets/lib/rickshaw/js/rickshaw.min.js') }}"></script>
+        <script src="{{ asset('assets/lib/jquery.sparkline.bower/js/jquery.sparkline.min.js') }}"></script>
+        <script src="{{ asset('assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
+
+        <script src="{{ asset('assets/lib/datatables/js/jquery.dataTables.js') }}"></script>
+        <script src="{{ asset('assets/lib/datatables-responsive/js/dataTables.responsive.js') }}"></script>
 
         {% block javascripts %}
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
+        <script src="{{ asset('assets/js/ResizeSensor.js') }}"></script>
+        <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+        <script src="{{ asset('assets/js/slim.js') }}"></script>
     </body>
 </html>

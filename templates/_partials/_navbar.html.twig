@@ -1,0 +1,26 @@
+<div class="slim-header">
+    <div class="container-fluid">
+        <div class="slim-header-left">
+            <h2 class="slim-logo"><a href="{{ path('dashboard') }}"><span>Go</span> Stock</a></h2>
+            <a href="" id="slimSidebarMenu" class="slim-sidebar-menu"><span></span></a>
+        </div><!-- slim-header-left -->
+        <div class="slim-header-right">
+
+            <div class="dropdown dropdown-c">
+                <a href="#" class="logged-user" data-toggle="dropdown">
+                    <img src="{% if app.user is not null%}{{ vich_uploader_asset(app.user) }}{% else %}{{ "http://via.placeholder.com/500x500" }}{% endif %}" alt="">
+                    <span>{% if app.user is not null%}{{ app.user.username }}{% endif %}</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <nav class="nav">
+                        <a href="{{ path('account') }}" class="nav-link"><i class="icon ion-person"></i> Voir le profil</a>
+                        <a href="{{ path('account_change_profile') }}" class="nav-link"><i class="icon ion-compose"></i> Modifier profil</a>
+                        <a href="{{ path('account_change_password') }}" class="nav-link"><i class="icon ion-locked"></i> Mot de passe</a>
+                        <a href="{{ path('account_logout') }}" class="nav-link"><i class="icon ion-log-out"></i> Déconnexion</a>
+                    </nav>
+                </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+        </div><!-- header-right -->
+    </div><!-- container-fluid -->
+</div><!-- slim-header -->

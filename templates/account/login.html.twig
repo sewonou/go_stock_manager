@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="description" content="application de gestion de stock pour petite et  moyenne boutique">
+    <meta name="author" content="Djanta Dev">
+
+    <title>Go Stock Manager: Connexion</title>
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+    <!-- Vendor css -->
+    <link href="{{ asset('assets/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
+
+    <!-- Slim CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/slim.css') }}">
+
+</head>
+<body>
+
+<div class="signin-wrapper">
+
+    <div class="signin-box">
+        <h2 class="slim-logo"><a href="{{ path('dashboard') }}"><span>Go</span> Stock Manager</a></h2>
+        <p class="mg-b-10 mg-sm-b-20">Votre application de gestion de stock</p>
+        <h3 class="signin-title-secondary">Connexion</h3>
+        <form action="{{ path('account_login') }}" method="post">
+            {% if hasError %}
+            <div class="alert alert-danger mg-b-20" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Une erreur est survenue</strong>, Le nom d'utlisateur ou le mot de passe est incorrect
+            </div><!-- alert -->
+            {% endif %}
+            <div class="form-group">
+                <input name="_username" type="text" class="form-control" placeholder="Saisir votre nom d'utilisateur" value="{{ username }}">
+            </div><!-- form-group -->
+            <div class="form-group mg-b-50">
+                <input name="_password" type="password" class="form-control" placeholder="Saisir votre mot de passe">
+            </div><!-- form-group -->
+            <button class="btn btn-primary btn-block btn-signin">Se connecter</button>
+        </form>
+    </div><!-- signin-box -->
+
+</div><!-- signin-wrapper -->
+
+<script src="{{ asset('assets/lib/jquery/js/jquery.js') }}"></script>
+<script src="{{ asset('assets/lib/popper.js/js/popper.js') }}"></script>
+<script src="{{ asset('assets/lib/bootstrap/js/bootstrap.js') }}"></script>
+
+<script src="{{ asset('assets/js/slim.js') }}"></script>
+
+</body>
+</html>

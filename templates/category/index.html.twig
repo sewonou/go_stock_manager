@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Catégories{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="#">Les Catégories</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste des catégories</li>
+        </ol>
+        <h6 class="slim-pagetitle">Liste des catégories</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        <div class="row">
+            <div class="col-sm-10">
+                <label class="section-title">Liste des Catégories </label>
+            </div>
+            <div class="col-sm-2">
+                <a href="{{ path('category_add') }}" class="btn btn-primary btn-block mg-b-10"><i class="fa fa-plus mg-r-2"></i> Nouveau</a>
+            </div>
+        </div>
+        <p class="mg-b-20 mg-sm-b-40">Voici la liste complète des catégories  de votre boutique</p>
+
+        <div class="table-wrapper">
+            <table id="user_data" class="table display responsive nowrap">
+                <thead>
+                <tr>
+                    <th class="wd-15p">id</th>
+                    <th class="wd-20p">Nom</th>
+                    <th class="wd-15p">Nombre de produits</th>
+                    <th class="wd-15p">Stock disponible</th>
+                    <th class="wd-15p">Valeur du stock</th>
+                    <th class="wd-15p">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for category in data %}
+                    <tr style="align-items: center !important;">
+                        <td>
+                            {{ category.id }}
+                        </td>
+                        <td>{{ category.name }}</td>
+                        <td>{{ "00" }}</td>
+                        <td>{{ "00" }}</td>
+                        <td>{{ '00' }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a class="btn btn-secondary" href="{{ path('category_show', {'id': category.id}) }}"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-secondary" href="{{ path('category_edit', {'id': category.id}) }}"><i class="fa fa-pencil"></i></a>
+                                <a class="btn btn-danger" href="{{ path('category_delete', {'id': category.id}) }}" onclick="return confirm('Voulez vous vraiment supprimer {{ category.name }}')"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- table-wrapper -->
+    </div><!-- section-wrapper -->
+{% endblock %}

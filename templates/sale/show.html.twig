@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Ventes{% endblock %}
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="#">Les Ventes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Fiche de ventes</li>
+        </ol>
+        <h6 class="slim-pagetitle">Détails de la vente : {{ sale.reference }}</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        <div class="form-layout">
+            {{ dump(sale) }}
+        </div><!-- form-layout -->
+
+    </div><!-- section-wrapper -->
+{% endblock %}

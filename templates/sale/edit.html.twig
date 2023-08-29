@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Ventes{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('sale') }}">Les ventes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifier une vente</li>
+        </ol>
+        <h6 class="slim-pagetitle">Modifier la vente</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        {{ include('sale/_form.html.twig') }}
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('assets/js/getResult.js') }}"></script>
+    <script src="{{ asset('assets/js/sale.js') }}"></script>
+{% endblock %}

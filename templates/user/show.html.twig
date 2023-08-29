@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="#">Utilisateurs</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profil</li>
+        </ol>
+        <h6 class="slim-pagetitle">Mon Profil d'utilisateur</h6>
+    </div><!-- slim-pageheader -->
+    <div class="row row-sm">
+        <div class="col-lg-8">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <div class="media">
+                        <img src="{% if user.imageName is not null %}{{ vich_uploader_asset(user) }}{% else %}{{ asset('assets/img/img0.jpg') }}{% endif %}"  alt="{{ user.fullName }}" id="selectedImage">
+
+                        <div class="media-body">
+                            <h3 class="card-profile-name">{% if user is defined %}{{ user.fullName }}{% endif %}</h3>
+                            <p class="card-profile-position">{% if user.userRole is defined %}{{ user.userRole.display }}{% endif %}</p>
+                            <p>{% if user is defined %}{{ user.address }}{% endif %}</p>
+
+                            <p class="mg-b-0">{% if user is defined %}{{ user.description }}{% endif %}</p>
+                        </div><!-- media-body -->
+                    </div><!-- media -->
+                </div><!-- card-body -->
+                <div class="card-footer">
+                    <a href="" class="card-profile-direct">{% if user is defined %}{{ user.username }}{% endif %}</a>
+                </div><!-- card-footer -->
+            </div><!-- card -->
+            <h6 class="slim-card-title mg-b-15 mg-t-15">Votre chiffre d'affaire</h6>
+            <div class="row no-gutters">
+                <div class="col-sm-4">
+                    <div class="card card-earning-summary">
+                        <h6>Vente du jour</h6>
+                        <h1>$950</h1>
+                        <span>Based on list price</span>
+                    </div><!-- card -->
+                </div><!-- col-6 -->
+                <div class="col-sm-4">
+                    <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t">
+                        <h6>Vente de la semaine</h6>
+                        <h1>$12,420</h1>
+                        <span>Based on list price</span>
+                    </div><!-- card -->
+                </div><!-- col-6 -->
+                <div class="col-sm-4">
+                    <div class="card card-earning-summary">
+                        <h6>Vente du mois</h6>
+                        <h1>$950</h1>
+                        <span>Based on list price</span>
+                    </div><!-- card -->
+                </div><!-- col-6 -->
+            </div><!-- row -->
+        </div>
+        <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+            <div class="card card-connection">
+                <div class="row row-xs">
+                    <div class="col-4 tx-primary">129</div>
+                    <div class="col-8">people viewed your profile in the past 90 days</div>
+                </div><!-- row -->
+                <hr>
+                <div class="row row-xs">
+                    <div class="col-4 tx-purple">845</div>
+                    <div class="col-8">
+                        connections <br>
+                        <a href="">Grow your network</a>
+                    </div>
+                </div><!-- row -->
+                <hr>
+                <div class="row row-xs">
+                    <div class="col-4 tx-purple">845</div>
+                    <div class="col-8">
+                        connections <br>
+                        <a href="">Grow your network</a>
+                    </div>
+                </div><!-- row -->
+                <hr>
+                <div class="row row-xs">
+                    <div class="col-4 tx-purple">845</div>
+                    <div class="col-8">
+                        connections <br>
+                        <a href="">Grow your network</a>
+                    </div>
+                </div><!-- row -->
+            </div><!-- card -->
+        </div>
+    </div>
+
+{% endblock %}
