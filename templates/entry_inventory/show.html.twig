@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Inventaires{% endblock %}
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="#">Les Entrées de stock</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Fiche de entrées de stock</li>
+        </ol>
+        <h6 class="slim-pagetitle">Détails de l'entrée en stock : {{ entryInventory.reference }}</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        <div class="card card-invoice printableArea">
+            <div  class="card-body">
+                <div class="invoice-header">
+                    <h1 class="invoice-title">Entrée en Stock</h1>
+                    <div class="billed-from">
+                        <h6>TAYBA MARKET</h6>
+                        <p>201 Something St., Something Town, YT 242, Country 6546<br>
+                            Tel No: 324 445-4544<br>
+                            Email: youremail@companyname.com</p>
+                    </div><!-- billed-from -->
+                </div><!-- invoice-header -->
+
+                <div class="row mg-t-20">
+                    <div class="col-md">
+
+                    </div><!-- col -->
+                    <div class="col-md">
+                        <label class="section-label-sm tx-gray-500">Fiche d'entrée en stock</label>
+                        <p class="invoice-info-row">
+                            <span>Entrée en stock No</span>
+                            <span>{% if entryInventory.reference is not null %}{{ entryInventory.reference }} {% endif %}</span>
+                        </p>
+                        <p class="invoice-info-row">
+                            <span>Date d'entrée:</span>
+                            <span>{{ entryInventory.createdAt | date('d F Y H:i') }}</span>
+                        </p>
+                    </div><!-- col -->
+                </div><!-- row -->
+
+                <div class="table-responsive mg-t-40">
+                    <table class="table table-invoice">
+                        <thead>
+                        <tr>
+                            <th class="wd-20p">No</th>
+                            <th class="wd-40p">Produit</th>
+                            <th class="tx-center">Qte</th>
+                            <th class="tx-right">Prix Unitaire</th>
+                            <th class="tx-right">Montant</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for line in entryInventory.entryInventoryLines %}
+                            <tr>
+                                <td>{{ line.id }}</td>
+                                <td class="tx-12">{{ line.product.name }}</td>
+                                <td class="tx-center">{{ line.qte }}</td>
+                                <td class="tx-right">{{ line.product.salePrice }}</td>
+                                <td class="tx-right">{{ line.product.salePrice*line.qte }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td class="tx-right tx-uppercase tx-bold tx-inverse">Montant total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="tx-right"><h4 class="tx-primary tx-bold tx-lato">{{ entryInventory.totalAmount }}</h4></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+
+                <hr class="mg-b-60">
+
+                <button id="print" class="btn btn-primary btn-block">Imprimer</button>
+
+            </div><!-- card-body -->
+        </div><!-- card -->
+
+    </div><!-- section-wrapper -->
+{% endblock %}

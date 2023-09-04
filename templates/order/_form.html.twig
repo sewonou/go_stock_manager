@@ -1,0 +1,14 @@
+{% form_theme form 'order/_collection.html.twig' %}
+
+{{ form_start(form) }}
+<div class="row mg-b-25">
+    <div class="col-lg-6">{{ form_row(form.reference) }}</div>
+    <div class="col-lg-6">{{ form_row(form.supplier) }}</div>
+</div>
+
+{{ form_row(form.orderLines) }}
+<div class="form-layout-footer mg-t-20">
+    <button class="btn btn-primary bd-0" type="submit">Valider</button>
+    <button class="btn btn-secondary bd-0" type="reset">Annuler</button>
+</div><!-- form-layout-footer -->
+{{ form_end(form) }}

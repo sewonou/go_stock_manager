@@ -32,6 +32,30 @@ class EntryInventory
         $this->entryInventoryLines = new ArrayCollection();
     }
 
+    public function getTotalQte()
+    {
+        $sum = array_reduce($this->entryInventoryLines->toArray(), function ($total, $entryInventoryLine){
+            return $total + $entryInventoryLine->getQte();
+        }, 0);
+        if(count($this->entryInventoryLines) > 0){
+            return $sum;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getTotalAmount()
+    {
+        $sum = array_reduce($this->entryInventoryLines->toArray(), function ($total, $entryInventoryLine){
+            return $total + ($entryInventoryLine->getQte()*$entryInventoryLine->getProduct()->getSalePrice());
+        }, 0);
+        if(count($this->entryInventoryLines) > 0){
+            return $sum;
+        }else{
+            return 0;
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

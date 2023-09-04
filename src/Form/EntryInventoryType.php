@@ -4,17 +4,24 @@ namespace App\Form;
 
 use App\Entity\EntryInventory;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EntryInventoryType extends AbstractType
+class EntryInventoryType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('createdAt')
-            ->add('reference')
-            ->add('author')
+            ->add('reference', TextType::class, $this->getConfiguration("", ""))
+            ->add('entryInventoryLines', CollectionType::class,$this->getConfiguration("", "",
+                [
+                    'entry_type' => EntryInventoryLineType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true
+                ])
+            )
         ;
     }
 

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use function Symfony\Component\Form\remove;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[Vich\Uploadable]
@@ -71,11 +72,12 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: SaleLine::class)]
-    private Collection $qte;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderLine::class)]
     private Collection $orderLines;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: SaleLine::class)]
+    private Collection $saleLines;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: EntryInventoryLine::class)]
     private Collection $entryInventoryLines;
@@ -85,10 +87,57 @@ class Product
 
     public function __construct()
     {
-        $this->qte = new ArrayCollection();
+        $this->saleLines = new ArrayCollection();
         $this->orderLines = new ArrayCollection();
         $this->entryInventoryLines = new ArrayCollection();
         $this->outInventoryLines = new ArrayCollection();
+    }
+
+    public function getSaleQte()
+    {
+        $sum = array_reduce($this->saleLines->toArray(), function ($total, $saleLine){
+            return $total + ($saleLine->getQte());
+        }, 0);
+        if(count($this->saleLines)>0){
+            return $sum;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getOutStockQte()
+    {
+        $sum = array_reduce($this->outInventoryLines->toArray(), function ($total, $outInventoryLine){
+            return $total + ($outInventoryLine->getQte());
+        }, 0);
+        if(count($this->outInventoryLines)>0){
+            return $sum;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getInStockQte()
+    {
+        $sum = array_reduce($this->entryInventoryLines->toArray(), function ($total, $entryInventoryLine){
+            return $total + ($entryInventoryLine->getQte());
+        }, 0);
+        if(count($this->entryInventoryLines)>0){
+            return $sum;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getStockQte()
+    {
+        $sum = $this->initQte + $this->getInStockQte() - $this->getOutStockQte() - $this->getSaleQte();
+        return $sum;
+    }
+
+    public function getStockValue()
+    {
+        return $this->getStockQte()*$this->salePrice;
     }
 
     #[ORM\PrePersist]
@@ -284,27 +333,27 @@ class Product
     /**
      * @return Collection<int, SaleLine>
      */
-    public function getQte(): Collection
+    public function getSaleLines(): Collection
     {
-        return $this->qte;
+        return $this->saleLines;
     }
 
-    public function addQte(SaleLine $qte): static
+    public function addSaleLine(SaleLine $saleLine): static
     {
-        if (!$this->qte->contains($qte)) {
-            $this->qte->add($qte);
-            $qte->setProduct($this);
+        if (!$this->saleLines->contains($saleLine)) {
+            $this->saleLines->add($saleLine);
+            $saleLine->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeQte(SaleLine $qte): static
+    public function removeSaleLine(SaleLine $saleLine): static
     {
-        if ($this->qte->removeElement($qte)) {
+        if ($this->saleLines->removeElement($saleLine)) {
             // set the owning side to null (unless already changed)
-            if ($qte->getProduct() === $this) {
-                $qte->setProduct(null);
+            if ($saleLine->getProduct() === $this) {
+                $saleLine->setProduct(null);
             }
         }
 

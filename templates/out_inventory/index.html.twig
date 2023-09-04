@@ -1,20 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OutInventoryController!{% endblock %}
+{% block title %}Les Sorties de stock{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('out_inventory') }}">Les Inventaires</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste des sorties de stock</li>
+        </ol>
+        <h6 class="slim-pagetitle">Les sorties de stock</h6>
+    </div><!-- slim-pageheader -->
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="section-wrapper">
+        <div class="row">
+            <div class="col-sm-10">
+                <label class="section-title">Liste des sorties de stock </label>
+            </div>
+            <div class="col-sm-2">
+                <a href="{{ path('out_inventory_add') }}" class="btn btn-primary btn-block mg-b-10"><i class="fa fa-plus mg-r-2"></i> Nouveau</a>
+            </div>
+        </div>
+        <p class="mg-b-20 mg-sm-b-40">Voici la liste complète des sorties de stock des produits de votre boutique</p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/htdocs/go_stock/src/Controller/OutInventoryController.php'|file_link(0) }}">src/Controller/OutInventoryController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/htdocs/go_stock/templates/out_inventory/index.html.twig'|file_link(0) }}">templates/out_inventory/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <div class="table-wrapper">
+            <table id="user_data" class="table display responsive nowrap">
+                <thead>
+                <tr>
+                    <th class="wd-10p">Id</th>
+                    <th class="wd-15p">Référence</th>
+                    <th class="wd-15p">Nbre de produits</th>
+                    <th class="wd-10p">Qte Total</th>
+                    <th class="wd-10p">Date</th>
+                    <th class="wd-10p">Vendeur</th>
+                    <th class="wd-15p">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for outInventory in data %}
+                    <tr >
+                        <td>
+                            {{ outInventory.id }}
+                        </td>
+                        <td>{{ outInventory.reference }}</td>
+                        <td>{{ outInventory.outInventoryLines | length }}</td>
+                        <td>{{ outInventory.totalQte }}</td>
+                        <td>{{ outInventory.createdAt }}</td>
+                        <td>{{ outInventory.author.fullName }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a class="btn btn-secondary" href="{{ path('out_inventory_show', {'id': outInventory.id}) }}"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-secondary" href="{{ path('out_inventory_edit', {'id': outInventory.id}) }}"><i class="fa fa-pencil"></i></a>
+                                <a class="btn btn-danger" href="{{ path('out_inventory_delete', {'id': outInventory.id}) }}" onclick="return confirm('Voulez vous vraiment supprimer la vente {{ outInventory.reference }}')"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- table-wrapper -->
+    </div><!-- section-wrapper -->
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function(){
+            'use strict';
+
+            $('#user_data').DataTable({
+                bLengthChange: false,
+                searching: true,
+                responsive: true
+            });
+
+        });
+
+        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+    </script>
 {% endblock %}

@@ -60,9 +60,6 @@ class SaleController extends AbstractController
         $sale = new Sale();
         $saleLine = new SaleLine();
         $form = $this->createForm(SaleType::class, $sale);
-        $sale->addSaleLine($saleLine);
-
-
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){

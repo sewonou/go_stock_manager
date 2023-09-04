@@ -32,6 +32,30 @@ class OutInventory
         $this->outInventoryLines = new ArrayCollection();
     }
 
+    public function getTotalQte()
+    {
+        $sum = array_reduce($this->outInventoryLines->toArray(), function ($total, $outInventoryLine){
+            return $total + $outInventoryLine->getQte();
+        }, 0);
+        if(count($this->outInventoryLines) > 0){
+            return $sum;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getTotalAmount()
+    {
+        $sum = array_reduce($this->outInventoryLines->toArray(), function ($total, $outInventoryLine){
+            return $total + ($outInventoryLine->getQte()*$outInventoryLine->getProduct()->getSalePrice());
+        }, 0);
+        if(count($this->outInventoryLines) > 0){
+            return $sum;
+        }else{
+            return 0;
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

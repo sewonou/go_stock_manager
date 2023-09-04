@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Inventaires{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('out_inventory') }}">Les Inventaires</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nouvelle sortie de stock</li>
+        </ol>
+        <h6 class="slim-pagetitle">Nouvelle sortie de stock</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        {{ include('out_inventory/_form.html.twig') }}
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('assets/js/getResult.js') }}"></script>
+    <script src="{{ asset('assets/js/outInventory.js') }}"></script>
+{% endblock %}

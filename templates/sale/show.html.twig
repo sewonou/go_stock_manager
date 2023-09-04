@@ -11,9 +11,113 @@
         <h6 class="slim-pagetitle">Détails de la vente : {{ sale.reference }}</h6>
     </div><!-- slim-pageheader -->
     <div class="section-wrapper">
-        <div class="form-layout">
-            {{ dump(sale) }}
-        </div><!-- form-layout -->
+        <div class="card card-invoice printableArea">
+            <div  class="card-body">
+                <div class="invoice-header">
+                    <h1 class="invoice-title">Facture</h1>
+                    <div class="billed-from">
+                        <h6>TAYBA MARKET</h6>
+                        <p>201 Something St., Something Town, YT 242, Country 6546<br>
+                            Tel No: 324 445-4544<br>
+                            Email: youremail@companyname.com</p>
+                    </div><!-- billed-from -->
+                </div><!-- invoice-header -->
 
+                <div class="row mg-t-20">
+                    <div class="col-md">
+                        <label class="section-label-sm tx-gray-500">Reçu de vente à</label>
+                        <div class="billed-to">
+                            <h6 class="tx-gray-800">{% if sale.clientName is not null %}{{ sale.clientName }}{% endif %}</h6>
+                        </div>
+                    </div><!-- col -->
+                    <div class="col-md">
+                        <label class="section-label-sm tx-gray-500">Information sur la facture</label>
+                        <p class="invoice-info-row">
+                            <span>Facture No</span>
+                            <span>{% if sale.reference is not null %}{{ sale.reference }} {% endif %}</span>
+                        </p>
+                        <p class="invoice-info-row">
+                            <span>Date de la vente:</span>
+                            <span>{{ sale.createdAt | date('d F Y H:i') }}</span>
+                        </p>
+                        <p class="invoice-info-row">
+                            <span>Date du Paiement:</span>
+                            <span>{{ sale.saleAt | date('d F Y H:i') }}</span>
+                        </p>
+                    </div><!-- col -->
+                </div><!-- row -->
+
+                <div class="table-responsive mg-t-40">
+                    <table class="table table-invoice">
+                        <thead>
+                        <tr>
+                            <th class="wd-20p">No</th>
+                            <th class="wd-40p">Produit</th>
+                            <th class="tx-center">Qte</th>
+                            <th class="tx-right">Prix Unitaire</th>
+                            <th class="tx-right">Montant</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for saleLine in sale.saleLines %}
+                        <tr>
+                            <td>{{ saleLine.id }}</td>
+                            <td class="tx-12">{{ saleLine.product.name }}</td>
+                            <td class="tx-center">{{ saleLine.qte }}</td>
+                            <td class="tx-right">{{ saleLine.product.salePrice }}</td>
+                            <td class="tx-right">{{ saleLine.product.salePrice*saleLine.qte }}</td>
+                        </tr>
+                        {% endfor %}
+
+                        <tr>
+                            <td class="tx-right">Tax (5%)</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td  class="tx-right">$287.50</td>
+                        </tr>
+                        <tr>
+                            <td class="tx-right">Discount</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="tx-right">-$50.00</td>
+                        </tr>
+                        <tr>
+                            <td class="tx-right tx-uppercase tx-bold tx-inverse">Total Due</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="tx-right"><h4 class="tx-primary tx-bold tx-lato">{{ sale.amount }}</h4></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+
+                <hr class="mg-b-60">
+
+                <button id="print" class="btn btn-primary btn-block">Imprimer</button>
+
+            </div><!-- card-body -->
+        </div><!-- card -->
     </div><!-- section-wrapper -->
 {% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/jquery.PrintArea.js') }}" type="text/JavaScript"></script>
+    <script>
+        $(document).ready(function() {
+            $("#print").click(function() {
+                var mode = 'iframe'; //popup
+                var close = mode == "popup";
+                var options = {
+                    mode: mode,
+                    popClose: close
+                };
+                $("div.printableArea").printArea(options);
+            });
+        });
+    </script>
+{% endblock %}
+
+

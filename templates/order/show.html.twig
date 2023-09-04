@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Commandes{% endblock %}
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('order') }}">Les Commandes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Fiche de commande</li>
+        </ol>
+        <h6 class="slim-pagetitle">Détails de la commandes : {{ order.reference }}</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        <div class="card card-invoice printableArea">
+            <div  class="card-body">
+                <div class="invoice-header">
+                    <h1 class="invoice-title">Commande</h1>
+                    <div class="billed-from">
+                        <h6>TAYBA MARKET</h6>
+                        <p>201 Something St., Something Town, YT 242, Country 6546<br>
+                            Tel No: 324 445-4544<br>
+                            Email: youremail@companyname.com</p>
+                    </div><!-- billed-from -->
+                </div><!-- invoice-header -->
+
+                <div class="row mg-t-20">
+                    <div class="col-md">
+                        <label class="section-label-sm tx-gray-500">Commande au fournisseur</label>
+                        <div class="billed-to">
+                            <h6 class="tx-gray-800">{% if order.supplier is not null %}{{ order.supplier.name }}{% endif %}</h6>
+                            <p>201 Something St., Something Town, YT 242, Country 6546<br>
+                                Tel No: 324 445-4544<br>
+                                Email: youremail@companyname.com</p>
+                        </div>
+                    </div><!-- col -->
+                    <div class="col-md">
+                        <label class="section-label-sm tx-gray-500">Information sur la commande</label>
+                        <p class="invoice-info-row">
+                            <span>Commande No</span>
+                            <span>{% if order.reference is not null %}{{ order.reference }} {% endif %}</span>
+                        </p>
+                        <p class="invoice-info-row">
+                            <span>Etat de la commande:</span>
+                            <span>{{ order.status }}</span>
+                        </p>
+                        <p class="invoice-info-row">
+                            <span>Date de la commande:</span>
+                            <span>{{ order.createdAt | date('d F Y H:i') }}</span>
+                        </p>
+                    </div><!-- col -->
+                </div><!-- row -->
+
+                <div class="table-responsive mg-t-40">
+                    <table class="table table-invoice">
+                        <thead>
+                        <tr>
+                            <th class="wd-20p">No</th>
+                            <th class="wd-40p">Produit</th>
+                            <th class="tx-center">Qte</th>
+                            <th class="tx-right">Prix d'achat</th>
+                            <th class="tx-right">Montant</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for orderLine in order.orderLines %}
+                            <tr>
+                                <td>{{ orderLine.id }}</td>
+                                <td class="tx-12">{{ orderLine.product.name }}</td>
+                                <td class="tx-center">{{ orderLine.qte }}</td>
+                                <td class="tx-right">{{ orderLine.purchasePrice }}</td>
+                                <td class="tx-right">{{ orderLine.purchasePrice*orderLine.qte }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td class="tx-right tx-uppercase tx-bold tx-inverse">Montant total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="tx-right"><h4 class="tx-primary tx-bold tx-lato">{{ order.totalAmount }}</h4></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+
+                <hr class="mg-b-60">
+
+                <button id="print" class="btn btn-primary btn-block">Imprimer</button>
+
+            </div><!-- card-body -->
+        </div><!-- card -->
+
+    </div><!-- section-wrapper -->
+{% endblock %}

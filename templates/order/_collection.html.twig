@@ -1,0 +1,51 @@
+{% block _order_orderLines_widget %}
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-bordered table-hover mg-b-0">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Code Bar</th>
+                    <th>Nom du produit</th>
+                    <th>Prix d'achat</th>
+                    <th>Quantite</th>
+                    <th>Montant</th>
+                    <th class="text-right">
+                        <button class="btn btn-primary bd-0" id="add-orderLine" type="button">Ajouter un produit</button>
+                        <input type="hidden" id="widgets-counter" value="0">
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="orderLine">
+                {{ form_widget(form) }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block _order_orderLines_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _order_orderLines_entry_widget %}
+    {#<tr>
+        <th colspan="7">{{ form_errors(form) }}</th>
+    </tr>#}
+    <tr class="order-line" id="block_{{id}}">
+        <th scope="row">{{ id }}</th>
+        <td class="code_bar">{{ form_widget(form.codeBar, {'attr':{'class': 'input-code-bar'}}) }}</td>
+        <td>{{ form_widget(form.product) }}</td>
+        <td>{{ form_widget(form.purchasePrice) }}</td>
+        <td>{{ form_widget(form.qte) }}</td>
+        <td>{{ form_widget(form.amount, {'attr':{'disabled': 'disabled'}}) }}</td>
+        <td class="text-right">
+            <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-outline-danger btn-icon">
+                <div>
+                    <i class="fa fa-trash-o"></i>
+                </div>
+            </button>
+        </td>
+    </tr>
+{% endblock %}

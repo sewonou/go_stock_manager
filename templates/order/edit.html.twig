@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Commandes{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('order') }}">Les Commandes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifier commande</li>
+        </ol>
+        <h6 class="slim-pagetitle">Modifier la commande</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        {{ include('order/_form.html.twig') }}
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('assets/js/getResult.js') }}"></script>
+    <script src="{{ asset('assets/js/order.js') }}"></script>
+{% endblock %}

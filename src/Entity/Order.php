@@ -31,9 +31,36 @@ class Order
     #[ORM\OneToMany(mappedBy: 'purchase', targetEntity: OrderLine::class)]
     private Collection $orderLines;
 
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?User $author = null;
+
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
+    }
+
+    public function getTotalQte()
+    {
+        $sum = array_reduce($this->orderLines->toArray(), function ($total, $orderLine){
+            return $total + $orderLine->getQte();
+        }, 0);
+        if(count($this->orderLines) > 0){
+            return $sum;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getTotalAmount()
+    {
+        $sum = array_reduce($this->orderLines->toArray(), function ($total, $orderLine){
+            return $total + ($orderLine->getQte()*$orderLine->getPurchasePrice());
+        }, 0);
+        if(count($this->orderLines) > 0){
+            return $sum;
+        }else{
+            return 0;
+        }
     }
 
     public function getId(): ?int
@@ -115,6 +142,18 @@ class Order
                 $orderLine->setPurchase(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

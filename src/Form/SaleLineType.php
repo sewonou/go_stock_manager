@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Product;
 use App\Entity\SaleLine;
+use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,7 +24,7 @@ class SaleLineType extends ApplicationType
                 'choice_label' => 'name',
                 'placeholder' => "Le Produit...",
             ]))
-            ->add('qte', TextType::class, $this->getConfiguration("", ""))
+            ->add('qte', IntegerType::class, $this->getConfiguration("", ""))
             ->add('stockQte', TextType::class, $this->getConfiguration("", "", [
                 'mapped'=>false
             ]))

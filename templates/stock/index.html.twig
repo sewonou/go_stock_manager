@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etat du stock{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('stock') }}">Etat du stock</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Fiche de stock au : {{ "now" | date('d F Y H:i') }}</li>
+        </ol>
+        <h6 class="slim-pagetitle">Etat du stock au : {{ "now" | date('d F Y H:i') }}</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        <div class="card card-invoice printableArea">
+            <div  class="card-body">
+                <div class="invoice-header">
+                    <h1 class="invoice-title">Etat du stock</h1>
+                    <div class="billed-from">
+                        <h6>TAYBA MARKET</h6>
+                        <p>201 Something St., Something Town, YT 242, Country 6546<br>
+                            Tel No: 324 445-4544<br>
+                            Email: youremail@companyname.com</p>
+                    </div><!-- billed-from -->
+                </div><!-- invoice-header -->
+
+                <div class="row mg-t-20">
+                    <div class="col-md">
+
+                    </div><!-- col -->
+                    <div class="col-md">
+                        <label class="section-label-sm tx-gray-500">Information sur le stock</label>
+
+                        <p class="invoice-info-row">
+                            <span>Etat de la commande:</span>
+                            <span>{{ "now"| date('d F Y à H:i')}}}</span>
+                        </p>
+                    </div><!-- col -->
+                </div><!-- row -->
+
+                <div class="table-responsive mg-t-40">
+                    <table class="table table-invoice">
+                        <thead>
+                        <tr>
+                            <th class="wd-5p">No</th>
+                            <th class="wd-40p">Produit</th>
+                            <th class="tx-center">Qte Initiale</th>
+                            <th class="tx-center">Qte vendue</th>
+                            <th class="tx-center">Qte sortie</th>
+                            <th class="tx-center">Qte entrée</th>
+                            <th class="tx-center">Qte minilale</th>
+                            <th class="tx-center">Qte Disponible</th>
+                            <th class="tx-center">Prix Unitaire</th>
+                            <th class="tx-center">Valeur total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in data %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td class="tx-12">{{ product.name }}</td>
+                                <td class="tx-center">{{ product.initQte }}</td>
+                                <td class="tx-center">{{ product.saleQte }}</td>
+                                <td class="tx-center">{{ product.outStockQte }}</td>
+                                <td class="tx-center">{{ product.inStockQte  }}</td>
+                                <td class="tx-center">{{ product.minQte }}</td>
+                                <td class="tx-center">{{ product.stockQte }}</td>
+                                <td class="tx-right">{{ product.salePrice }}</td>
+                                <td class="tx-right">{{ product.stockValue }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="9" class="tx-left tx-uppercase tx-bold tx-inverse">Valeur total du stock</td>
+
+                            <td class="tx-right"><h4 class="tx-primary tx-bold tx-lato">{{ StockValue }}</h4></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+
+                <hr class="mg-b-60">
+
+                <button id="print" class="btn btn-primary btn-block">Imprimer</button>
+
+            </div><!-- card-body -->
+        </div><!-- card -->
+
+    </div><!-- section-wrapper -->
+{% endblock %}

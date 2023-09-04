@@ -1,29 +1,21 @@
 <div class="slim-navbar">
     <div class="container">
         <ul class="nav">
-            <li class="nav-item {#with-sub active#}">
-                <a class="nav-link" href="#{{ path('dashboard') }}>
+            <li class="nav-item  active">
+                <a class="nav-link" href="{{ path('dashboard') }}">
                     <i class="icon ion-ios-home-outline"></i>
                     <span>Tableau de bord</span>
                 </a>
-                {#<div class="sub-item">
-                    <ul>
-                        <li><a href="index.html">Dashboard 01</a></li>
-                        <li><a href="index2.html">Dashboard 02</a></li>
-                        <li><a href="index3.html">Dashboard 03</a></li>
-                        <li><a href="index4.html">Dashboard 04</a></li>
-                        <li><a href="index5.html">Dashboard 05</a></li>
-                    </ul>
-                </div><!-- sub-item -->#}
+
             </li>
-            <li class="nav-item {#with-sub  mega-dropdown#}">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ path('sale') }}">
                     <i class="icon ion-ios-cart"></i>
                     <span>Ventes</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ path('order') }}">
                     <i class="icon ion-ios-book-outline"></i>
                     <span>Commandes</span>
                 </a>
@@ -35,9 +27,9 @@
                 </a>
                 <div class="sub-item">
                     <ul>
-                        <li><a href="#">Enrtrée de stock</a></li>
-                        <li><a href="#">Sortie de stock</a></li>
-                        <li><a href="#">Etat du stock</a></li>
+                        <li><a href="{{ path('entry_inventory') }}">Enrtrée de stock</a></li>
+                        <li><a href="{{ path('out_inventory') }}">Sortie de stock</a></li>
+                        <li><a href="{{ path('stock') }}">Etat du stock</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </li>

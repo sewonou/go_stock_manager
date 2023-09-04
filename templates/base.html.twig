@@ -11,8 +11,6 @@
         <!-- vendor css -->
         <link href="{{ asset('assets/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/lib/chartist/css/chartist.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/lib/rickshaw/css/rickshaw.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}" rel="stylesheet">
         {% block stylesheets %}
         {% endblock %}
@@ -24,13 +22,12 @@
 
 
     </head>
-    <body >
+    <body class="">
         {{ include('_partials/_navbar.html.twig') }}
         {{ include('_partials/_topbar.html.twig') }}
-        <div class="slim-body">
             {#{{ include('_partials/_sidebar.html.twig') }}#}
-            <div class="slim-mainpanel">
-                <div class="container">
+            <div class="slim-mainpanel" style="position: relative;">
+                <div class="container pd-t-30">
                     {% for label, messages in app.flashes %}
                         <div class="container">
                             <div class="alert alert-{{ label }}">
@@ -43,19 +40,14 @@
                     {% endfor %}
                     {% block body %}{% endblock %}
                 </div>
-                {{ include('_partials/_footer.html.twig') }}
+
             </div>
-
-        </div>
-
+        {{ include('_partials/_footer.html.twig') }}
         <script src="{{ asset('assets/lib/jquery/js/jquery.js') }}"></script>
         <script src="{{ asset('assets/lib/popper.js/js/popper.js') }}"></script>
         <script src="{{ asset('assets/lib/bootstrap/js/bootstrap.js') }}"></script>
         <script src="{{ asset('assets/lib/jquery.cookie/js/jquery.cookie.js') }}"></script>
-        <script src="{{ asset('assets/lib/chartist/js/chartist.js') }}"></script>
         <script src="{{ asset('assets/lib/d3/js/d3.js') }}"></script>
-        <script src="{{ asset('assets/lib/rickshaw/js/rickshaw.min.js') }}"></script>
-        <script src="{{ asset('assets/lib/jquery.sparkline.bower/js/jquery.sparkline.min.js') }}"></script>
         <script src="{{ asset('assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js') }}"></script>
 
         <script src="{{ asset('assets/lib/datatables/js/jquery.dataTables.js') }}"></script>
@@ -64,7 +56,6 @@
         {% block javascripts %}
         {% endblock %}
         <script src="{{ asset('assets/js/ResizeSensor.js') }}"></script>
-        <script src="{{ asset('assets/js/dashboard.js') }}"></script>
         <script src="{{ asset('assets/js/slim.js') }}"></script>
     </body>
 </html>
