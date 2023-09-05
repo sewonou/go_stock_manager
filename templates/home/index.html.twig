@@ -10,45 +10,58 @@
         </div>
         <div class="d-h-t-right">
             <div class="summary-item">
-                <h1>$1,433</h1>
+                <h1>{{ stats.currentDayAmountSale ~ " F CFA" }}</h1>
                 <span>Ventes <br>du jour</span>
             </div>
             <div class="summary-item">
-                <h1>$296</h1>
+                <h1>{{ stats.lastDayAmountSale ~ " F CFA" }}</h1>
                 <span>Ventes<br>d'hier</span>
             </div>
         </div>
     </div><!-- dash-headline-two -->
     <div class="card card-dash-one mg-t-20">
         <div class="row no-gutters">
-            <div class="col-lg-3">
-                <i class="icon ion-ios-analytics-outline"></i>
+            <div class="col-lg-2">
+                <i class="icon ion-ios-world-outline"></i>
                 <div class="dash-content">
-                    <label class="tx-primary">Nbre de produits</label>
-                    <h2>822,490</h2>
+                    <label class="tx-danger">Qte Initial</label>
+                    <h2>{{ stats.totalInit }}</h2>
                 </div><!-- dash-content -->
             </div><!-- col-3 -->
+
+            <div class="col-lg-2">
+                <i class="icon ion-ios-stopwatch-outline"></i>
+                <div class="dash-content">
+                    <label class="tx-purple">Entrées en stock</label>
+                    <h2>{{ stats.totalEntry }}</h2>
+                </div><!-- dash-content -->
+            </div><!-- col-3 -->
+
+
             <div class="col-lg-3">
                 <i class="icon ion-ios-pie-outline"></i>
                 <div class="dash-content">
-                    <label class="tx-success">Nbre de ventes</label>
-                    <h2>465,183</h2>
+                    <label class="tx-success">Qte de produits de Vendu</label>
+                    <h2>{{ stats.totalSale }}</h2>
                 </div><!-- dash-content -->
             </div><!-- col-3 -->
-            <div class="col-lg-3">
-                <i class="icon ion-ios-stopwatch-outline"></i>
-                <div class="dash-content">
-                    <label class="tx-purple">Moyenne  Quotidienne</label>
-                    <h2>781,524</h2>
-                </div><!-- dash-content -->
-            </div><!-- col-3 -->
-            <div class="col-lg-3">
+
+
+            <div class="col-lg-2">
                 <i class="icon ion-ios-world-outline"></i>
                 <div class="dash-content">
-                    <label class="tx-danger">Moyenne Mensuelle</label>
-                    <h2>369,657</h2>
+                    <label class="tx-danger">Sorties de Stock</label>
+                    <h2>{{ stats.totalOut }}</h2>
                 </div><!-- dash-content -->
             </div><!-- col-3 -->
+
+            <div class="col-lg-3">
+                <i class="icon ion-ios-analytics-outline"></i>
+                <div class="dash-content">
+                    <label class="tx-primary">Nbre de produits Disponible</label>
+                    <h2>{{ stats.totalProductInStock }}</h2>
+                </div><!-- dash-content -->
+            </div><!-- col-2-->
         </div><!-- row -->
     </div><!-- card -->
     <div class="nav-statistics-wrapper">
@@ -58,24 +71,24 @@
     </div><!-- nav-statistics-wrapper -->
     <div class="row row-statistics mg-b-30">
         <div class="col-md-5">
-            <h1 class="tx-inverse tx-56 tx-lato tx-bold">34,100</h1>
-            <h6 class="tx-15 tx-inverse tx-bold mg-b-20">Résumé des ventes (7 Jours)</h6>
-            <p>Ce tableau présente de résumé de votre chiffres d'affaire sur les 7 derniers jours</p>
+            <h1 class="tx-inverse tx-56 tx-lato tx-bold">{{ stats.currentWeekNumberOfSale }}</h1>
+            <h6 class="tx-15 tx-inverse tx-bold mg-b-20">Résumé des ventes de la semaine</h6>
+            <p>Ce tableau présente de résumé de votre chiffres d'affaire de ce mois</p>
         </div><!-- col-5 -->
         <div class="col-md-7 mg-t-20 mg-md-t-0">
             <h6 class="slim-card-title mg-b-15">Votre revenu</h6>
             <div class="row no-gutters">
                     <div class="col-sm-6">
                         <div class="card card-earning-summary">
-                            <h6>Revenu du jour</h6>
-                            <h1>$950</h1>
+                            <h6>Revenue du jour</h6>
+                            <h1>{{ stats.currentDayAmountSale ~ " F CFA" }}</h1>
                             <span>Basé sur les prix de ventes</span>
                         </div><!-- card -->
                     </div><!-- col-6 -->
                     <div class="col-sm-6">
                         <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t">
-                            <h6>Revenu de la semaine</h6>
-                            <h1>$12,420</h1>
+                            <h6>Revenue de la semaine</h6>
+                            <h1>{{ stats.currentWeekAmountSale ~ " F CFA" }}</h1>
                             <span>Basé sur les prix de ventes</span>
                         </div><!-- card -->
                     </div><!-- col-6 -->
@@ -83,15 +96,15 @@
             <div class="row no-gutters">
                 <div class="col-sm-6">
                     <div class="card card-earning-summary">
-                        <h6>Revenu du mois</h6>
-                        <h1>$950</h1>
+                        <h6>Revenue du mois</h6>
+                        <h1>{{ stats.currentMonthAmountSale ~ " F CFA" }}</h1>
                         <span>Basé sur les prix de ventes</span>
                     </div><!-- card -->
                 </div><!-- col-6 -->
                 <div class="col-sm-6">
                     <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t">
                         <h6>Commande du mois</h6>
-                        <h1>$12,420</h1>
+                        <h1>{{ stats.currentMonthAmountCommand ~ " F CFA" }}</h1>
                         <span>Basé sur les prix d'achats</span>
                     </div><!-- card -->
                 </div><!-- col-6 -->
@@ -106,103 +119,34 @@
         <div class="col-md-4 col-lg">
             <div class="card card-total">
                 <div>
-                    <h1>420</h1>
+                    <h4>{{ stats.totalProductInStock }}</h4>
                     <p>Etat du stock</p>
                 </div>
-                <div>
-                    <div class="tx-24 mg-b-10 tx-center op-5">
-                        <i class="icon ion-man tx-gray-600"></i>
-                        <i class="icon ion-man tx-gray-600"></i>
-                        <i class="icon ion-man tx-gray-600"></i>
-                        <i class="icon ion-man tx-gray-600"></i>
-                        <i class="icon ion-man tx-gray-600"></i>
-                        <i class="icon ion-man tx-gray-600"></i>
-                        <i class="icon ion-man tx-gray-400"></i>
-                        <i class="icon ion-man tx-gray-400"></i>
-                        <i class="icon ion-man tx-gray-400"></i>
-                        <i class="icon ion-man tx-gray-400"></i>
-                    </div>
-                    <label>Female (66%)</label>
-                    <div class="progress mg-b-10">
-                        <div class="progress-bar bg-primary progress-bar-xs wd-65p" role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div><!-- progress -->
 
-                    <label>Male (34%)</label>
-                    <div class="progress">
-                        <div class="progress-bar bg-danger progress-bar-xs wd-35p" role="progressbar" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div><!-- progress -->
-                </div>
             </div><!-- card -->
         </div><!-- col -->
         <div class="col-md-4 col-lg">
             <div class="card card-total">
                 <div>
-                    <h1>55</h1>
+                    <h4>{{ stats.productOutOfStock | length }}</h4>
                     <p>Produit en rupture</p>
                 </div>
-                <div>
-                    <div class="tx-16 mg-b-15 tx-center op-5">
-                        <i class="icon ion-cube tx-gray-600"></i>
-                        <i class="icon ion-cube tx-gray-600"></i>
-                        <i class="icon ion-cube tx-gray-600"></i>
-                        <i class="icon ion-cube tx-gray-600"></i>
-                        <i class="icon ion-cube tx-gray-600"></i>
-                        <i class="icon ion-cube tx-gray-600"></i>
-                        <i class="icon ion-cube tx-gray-600"></i>
-                        <i class="icon ion-cube tx-gray-600"></i>
-                        <i class="icon ion-cube tx-gray-400"></i>
-                        <i class="icon ion-cube tx-gray-400"></i>
-                    </div>
-                    <label>Digital products (85%)</label>
-                    <div class="progress mg-b-10">
-                        <div class="progress-bar bg-success progress-bar-xs wd-85p" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div><!-- progress -->
-
-                    <label>Non-digital products (15%)</label>
-                    <div class="progress">
-                        <div class="progress-bar bg-warning progress-bar-xs wd-15p" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div><!-- progress -->
-                </div>
             </div><!-- card -->
         </div><!-- col -->
         <div class="col-md-4 col-lg">
             <div class="card card-total">
                 <div>
-                    <h1>30</h1>
+                    <h4>{{ stats.totalProductInStockValue ~" F CFA" }}</h4>
                     <p>Valeur du stock</p>
-                </div>
-                <div>
-                    <div class="tx-22 mg-b-10 tx-center op-5">
-                        <i class="icon ion-location tx-gray-600"></i>
-                        <i class="icon ion-location tx-gray-600"></i>
-                        <i class="icon ion-location tx-gray-600"></i>
-                        <i class="icon ion-location tx-gray-600"></i>
-                        <i class="icon ion-location tx-gray-600"></i>
-                        <i class="icon ion-location tx-gray-600"></i>
-                        <i class="icon ion-location tx-gray-600"></i>
-                        <i class="icon ion-location tx-gray-400"></i>
-                        <i class="icon ion-location tx-gray-400"></i>
-                        <i class="icon ion-location tx-gray-400"></i>
-                    </div>
-                    <label>Local (75%)</label>
-                    <div class="progress mg-b-10">
-                        <div class="progress-bar bg-purple progress-bar-xs wd-75p" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div><!-- progress -->
-
-                    <label>International (25%)</label>
-                    <div class="progress">
-                        <div class="progress-bar bg-pink progress-bar-xs wd-25p" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div><!-- progress -->
                 </div>
             </div><!-- card -->
         </div><!-- col -->
         <div class="col-md col-lg-4">
             <div class="card card-revenue">
-                <h6>Revenue mensuel</h6>
                 <p>Revenu du {{ "now"|date("F Y") }}</p>
-                <h1>$32,500 <span class="tx-success">1.4% up</span></h1>
-                <div id="rs3" class="ht-50 ht-sm-70 mg-r--1"></div>
-                <label>Mois de {{ "now"|date_modify("-1 month")|date("F Y") }}: <span>$79,554</span></label>
+                {%  set percent =  ((stats.currentMonthAmountSale - stats.lastMonthAmountSale)/stats.lastMonthAmountSale)*100 | round  %}
+                <h4>{{ stats.currentMonthAmountSale ~" F CFA" }} <span class="{% if (percent > 0) %}tx-success{% else %} tx-danger {% endif %}">{{ percent }}% </span></h4>
+                <label>Revenue Mois de {{ "now"|date_modify("-1 month")|date("F Y") }}: <span>{{ stats.lastMonthAmountSale ~" F CFA" }}</span></label>
             </div><!-- card -->
         </div><!-- col-4 -->
     </div><!-- row -->
@@ -221,24 +165,25 @@
     </div><!-- d-flex -->
 
     <div class="row row-sm">
+        {% for product in stats.productMostSale %}
         <div class="col-md-6 col-lg-4">
             <div class="card card-popular-product">
-                <label class="prod-id">Product ID: #PD-1754</label>
-                <h5 class="prod-name"><a href="">US 360 Home Security IP Camera Night</a></h5>
-                <p class="prod-by">By: <a href="">ThmPxls Security</a></p>
+                <h5 class="prod-name"><a href="">{{ product.name }}</a></h5>
+                <p class="prod-by">Par: <a href="">{{ product.brandName }}</a></p>
                 <div class="row">
                     <div class="col-5">
-                        <h1>1885</h1>
-                        <p>Total Sales</p>
+                        <h1>{{ product.totalSale }}</h1>
+                        <p>Qte Vendu</p>
                     </div><!-- col -->
                     <div class="col-7">
-                        <h1>$12,056</h1>
-                        <p>Earnings</p>
+                        <h1>{{ product.totalAmount ~" F CFA" }}</h1>
+                        <p>Revenue</p>
                     </div><!-- col -->
                 </div><!-- row -->
             </div><!-- card -->
         </div><!-- col-4 -->
-        <div class="col-md-6 col-lg-4 mg-t-20 mg-md-t-0">
+        {% endfor %}
+        {#<div class="col-md-6 col-lg-4 mg-t-20 mg-md-t-0">
             <div class="card card-popular-product">
                 <label class="prod-id">Product ID: #PD-1753</label>
                 <h5 class="prod-name"><a href="">US KS-5 Junior Lite DVD Karaoke 9500</a></h5>
@@ -271,7 +216,56 @@
                     </div><!-- col -->
                 </div><!-- row -->
             </div><!-- card -->
-        </div><!-- col-4 -->
+        </div><!-- col-4 #}{#-->#}
+
     </div><!-- row -->
 
+    <hr>
+    <div class="row row-xs mg-t-40 mg-b-40">
+        <div class="col-lg-12">
+            <div class="card card-table">
+                <div class="card-header">
+                    <h6 class="slim-card-title">Les produits en rupture de stock</h6>
+                </div><!-- card-header -->
+                <div class="table-responsive">
+                    <table class="table mg-b-0 tx-13">
+                        <thead>
+                        <tr class="tx-10">
+                            <th class="wd-10p pd-y-5">&nbsp;</th>
+                            <th class="pd-y-5">Produit</th>
+                            <th class="pd-y-5">Catégorie</th>
+                            <th class="pd-y-5">Qté en stock</th>
+                            <th class="pd-y-5">Qté en vendu</th>
+                            <th class="pd-y-5">Prix Unitaire</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in stats.productOutOfStock %}
+                        <tr>
+                            <td class="pd-l-20">
+                                <a href="#" class="logged-user">
+                                <img src="{{ vich_uploader_asset(product) }}" alt="">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="" class="tx-inverse tx-14 tx-medium d-block">{{ product.name }}</a>
+                                <span class="tx-11 d-block">{{ product.codeBar }}</span>
+                            </td>
+                            <td class="tx-12">
+                                {{product.category.name}}
+                            </td>
+                            <td>{{product.stockQte}}</td>
+                            <td>{{ product.saleQte }}</td>
+                            <td>{{ product.salePrice }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+                <div class="card-footer tx-12 pd-y-15 bg-transparent">
+                    <a href=""><i class="fa fa-angle-down mg-r-5"></i>View All Transaction History</a>
+                </div><!-- card-footer -->
+            </div><!-- card -->
+        </div><!-- col-12 -->
+    </div>
 {% endblock %}

@@ -49,8 +49,8 @@
                         <td>{{ product.brandName }}</td>
                         <td>{{ product.salePrice }}</td>
                         <td>{{ product.minQte }}</td>
-                        <td>{{ "00" }}</td>
-                        <td>{{ '00' }}</td>
+                        <td>{{ product.stockQte }}</td>
+                        <td>{{ product.stockValue }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a class="btn btn-secondary" href="{{ path('product_show', {'id': product.id}) }}"><i class="fa fa-eye"></i></a>

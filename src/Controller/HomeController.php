@@ -14,7 +14,6 @@ class HomeController extends AbstractController
     public function index(StatsService $statsService): Response
     {
         $stats      = $statsService->getStats();
-        dump($stats);
         return $this->render('home/index.html.twig', [
             'stats' => $stats,
         ]);

@@ -23,17 +23,20 @@ class EntryInventoryController extends AbstractController
     }
 
     #[Route('/entry/inventory/add', name: 'entry_inventory_add')]
-    public function add(EntityManagerInterface $manager, Request $request): Response
+    public function add(EntityManagerInterface $manager, Request $request, EntryInventoryRepository $repository): Response
     {
         $entryInventory = new EntryInventory();
         $form = $this->createForm(EntryInventoryType::class, $entryInventory);
         $form->handleRequest($request);
+        $next = $repository->count([])+1;
         if($form->isSubmitted() && $form->isValid()){
             foreach($entryInventory->getEntryInventoryLines() as $entryInventoryLine) {
                 $entryInventoryLine->setInventory($entryInventory);
                 $manager->persist($entryInventoryLine);
             }
-            $entryInventory->setAuthor($this->getUser());
+            $entryInventory->setAuthor($this->getUser())
+                ->setReference('INSTOCK-'.$next)
+            ;
             $manager->persist($entryInventory);
             $manager->flush();
 

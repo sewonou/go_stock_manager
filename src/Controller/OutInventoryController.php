@@ -23,17 +23,20 @@ class OutInventoryController extends AbstractController
     }
 
     #[Route('/out/inventory/add', name: 'out_inventory_add')]
-    public function add(EntityManagerInterface $manager, Request $request): Response
+    public function add(EntityManagerInterface $manager, Request $request, OutInventoryRepository $repository): Response
     {
         $outInventory = new OutInventory();
         $form = $this->createForm(OutInventoryType::class, $outInventory);
+        $next = $repository->count([])+1 ;
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             foreach($outInventory->getOutInventoryLines() as $outInventoryLine) {
                 $outInventoryLine->setInventory($outInventory);
                 $manager->persist($outInventoryLine);
             }
-            $outInventory->setAuthor($this->getUser());
+            $outInventory->setAuthor($this->getUser())
+                ->setReference('OUTSTOCK-'.$next)
+            ;
             $manager->persist($outInventory);
             $manager->flush();
 

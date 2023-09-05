@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EntryInventoryRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class EntryInventory
 {
     #[ORM\Id]
@@ -30,6 +31,15 @@ class EntryInventory
     public function __construct()
     {
         $this->entryInventoryLines = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initialize()
+    {
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 
     public function getTotalQte()

@@ -16,7 +16,7 @@ class SaleType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('reference', TextType::class, $this->getConfiguration('Référence',''))
+            /*->add('reference', TextType::class, $this->getConfiguration('Référence',''))*/
             ->add('clientName', TextType::class, $this->getConfiguration('Nom du client',''))
             ->add('saleLines', CollectionType::class,$this->getConfiguration("", "",
                 [

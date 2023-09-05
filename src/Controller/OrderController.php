@@ -23,17 +23,20 @@ class OrderController extends AbstractController
     }
 
     #[Route('/order/add', name: 'order_add')]
-    public function add(EntityManagerInterface $manager, Request $request): Response
+    public function add(EntityManagerInterface $manager, Request $request, OrderRepository $repository): Response
     {
         $order = new Order();
         $form = $this->createForm(OrderType::class, $order);
+        $next = $repository->count([]) +1 ;
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             foreach($order->getOrderLines() as $orderLine) {
                 $orderLine->setPurchase($order);
                 $manager->persist($orderLine);
             }
-            $order->setAuthor($this->getUser());
+            $order->setAuthor($this->getUser())
+                ->setReference('COMMAND-'.$next)
+            ;
             $manager->persist($order);
             $manager->flush();
 

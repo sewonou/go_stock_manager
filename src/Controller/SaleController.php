@@ -55,11 +55,13 @@ class SaleController extends AbstractController
 
 
     #[Route('/sales/new', name: 'sale_add')]
-    public function saveSales(Request $request, EntityManagerInterface $manager) : Response
+    public function saveSales(Request $request, EntityManagerInterface $manager, SaleRepository $repository) : Response
     {
         $sale = new Sale();
-        $saleLine = new SaleLine();
         $form = $this->createForm(SaleType::class, $sale);
+        $total = $repository->count([]);
+        $next = $total +1;
+        //dd($total);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -67,7 +69,8 @@ class SaleController extends AbstractController
                 $saleLine->setSale($sale);
                 $manager->persist($saleLine);
             }
-            $sale->setAuthor($this->getUser());
+            $sale->setAuthor($this->getUser())
+                ->setReference('VNT-'.$next);
             $manager->persist($sale);
             $manager->flush();
 

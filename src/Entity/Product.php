@@ -14,6 +14,7 @@ use function Symfony\Component\Form\remove;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[Vich\Uploadable]
+#[ORM\HasLifecycleCallbacks]
 class Product
 {
     #[ORM\Id]
@@ -93,6 +94,16 @@ class Product
         $this->outInventoryLines = new ArrayCollection();
     }
 
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initialize()
+    {
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTimeImmutable();
+        }
+        $this->updatedAt = new  \DateTimeImmutable();
+    }
+
     public function getSaleQte()
     {
         $sum = array_reduce($this->saleLines->toArray(), function ($total, $saleLine){
@@ -140,15 +151,6 @@ class Product
         return $this->getStockQte()*$this->salePrice;
     }
 
-    #[ORM\PrePersist]
-    #[ORM\PreUpdate]
-    public function initialize()
-    {
-        if(empty($this->createdAt)){
-            $this->createdAt = new \DateTimeImmutable();
-        }
-        $this->updatedAt = new \DateTimeImmutable();
-    }
 
     public function getId(): ?int
     {

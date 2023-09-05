@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SaleRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Sale
 {
     #[ORM\Id]
@@ -42,6 +43,16 @@ class Sale
     public function __construct()
     {
         $this->saleLines = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initialize()
+    {
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTimeImmutable();
+        }
+        $this->updatedAt = new  \DateTimeImmutable();
     }
 
     public function getAmount()

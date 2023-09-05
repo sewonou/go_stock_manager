@@ -45,7 +45,7 @@
                         <td>{{ order.reference }}</td>
                         <td>{% if order.supplier is not null %}{{ order.supplier.name }}{% endif %}</td>
                         <td>{{ order.totalAmount }}</td>
-                        <td>{{ order.createdAt }}</td>
+                        <td>{{ order.createdAt | date() }}</td>
                         <td>{% if order.author is not null %}{{ order.author.fullName }} {% endif %}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">

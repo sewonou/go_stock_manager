@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
+#[ORM\HasLifecycleCallbacks]
 class Order
 {
     #[ORM\Id]
@@ -37,6 +38,15 @@ class Order
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initialize()
+    {
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 
     public function getTotalQte()

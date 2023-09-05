@@ -45,7 +45,7 @@
                         <td>{{ sale.reference }}</td>
                         <td>{{ sale.clientName }}</td>
                         <td>{{ sale.amount }}</td>
-                        <td>{{ sale.saleAt }}</td>
+                        <td>{{ sale.saleAt | date() }}</td>
                         <td>{{ sale.author.fullName }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">

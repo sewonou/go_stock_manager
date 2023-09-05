@@ -14,7 +14,7 @@ class OutInventoryType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('reference', TextType::class, $this->getConfiguration("", ""))
+            /*->add('reference', TextType::class, $this->getConfiguration("", ""))*/
             ->add('outInventoryLines', CollectionType::class,$this->getConfiguration("", "",
                 [
                     'entry_type' => OutInventoryLineType::class,

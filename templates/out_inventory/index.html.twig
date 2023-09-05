@@ -45,7 +45,7 @@
                         <td>{{ outInventory.reference }}</td>
                         <td>{{ outInventory.outInventoryLines | length }}</td>
                         <td>{{ outInventory.totalQte }}</td>
-                        <td>{{ outInventory.createdAt }}</td>
+                        <td>{{ outInventory.createdAt  | date() }}</td>
                         <td>{{ outInventory.author.fullName }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">

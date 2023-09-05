@@ -15,8 +15,8 @@ class OrderType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('status')
-            ->add('reference')
+            /*->add('status')*/
+            /*->add('reference')*/
             ->add('supplier', EntityType::class, $this->getConfiguration("", "", [
                 'class' => Supplier::class,
                 'choice_label' => 'name',
