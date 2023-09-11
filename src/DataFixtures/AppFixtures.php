@@ -2,10 +2,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
@@ -20,6 +22,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $faker = Factory::create('fr_FR');
         $roleAdmin = new Role();
         $roleAdmin->setTitle('ROLE_ADMIN')
             ->setDisplay('Manager')

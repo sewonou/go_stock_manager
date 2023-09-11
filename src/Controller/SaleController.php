@@ -22,7 +22,7 @@ class SaleController extends AbstractController
     public function index(SaleRepository $repository, SessionInterface $session): Response
     {
         $session->clear();
-        $data = $repository->findAll();
+        $data = $repository->findBy([], ['createdAt' => 'DESC'], null, null);
         return $this->render('sale/index.html.twig', [
             'data' => $data,
         ]);

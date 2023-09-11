@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Dépenses{% endblock %}
+
+{% block body %}
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="#">Les Dépenses</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste des dépenses</li>
+        </ol>
+        <h6 class="slim-pagetitle">Liste des dépenses</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper">
+        <div class="row">
+            <div class="col-sm-10">
+                <label class="section-title">Liste des Dépenses </label>
+            </div>
+            <div class="col-sm-2">
+                <a href="{{ path('expense_add') }}" class="btn btn-primary btn-block mg-b-10"><i class="fa fa-plus mg-r-2"></i> Nouveau</a>
+            </div>
+        </div>
+        <p class="mg-b-20 mg-sm-b-40">Voici la liste complète des dépenses  de votre boutique</p>
+
+        <div class="table-wrapper">
+            <table id="user_data" class="table display responsive nowrap">
+                <thead>
+                <tr>
+                    <th class="wd-15p">id</th>
+                    <th class="wd-20p">Réference</th>
+                    <th class="wd-15p text-center">Montant</th>
+                    <th class="">Date</th>
+                    <th class="text-right">Auteur</th>
+                    <th class="text-right">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for expense in data %}
+                    <tr style="align-items: center !important;">
+                        <td>
+                            {{ expense.id }}
+                        </td>
+                        <td>{{ expense.reference }}</td>
+                        <td class="text-center"><span class="h5">{{ expense.amount }} F CFA</span> </td>
+                        <td class="text-right">{{ expense.createdAt | date() }}</td>
+                        <td class="text-right">{{ expense.author.fullName }}</td>
+                        <td class="text-right">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a class="btn btn-secondary" href="{{ path('expense_show', {'id': expense.id}) }}"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-secondary" href="{{ path('expense_edit', {'id': expense.id}) }}"><i class="fa fa-pencil"></i></a>
+                                <a class="btn btn-danger" href="{{ path('expense_delete', {'id': expense.id}) }}" onclick="return confirm('Voulez vous vraiment supprimer {{ expense.reference }}')"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- table-wrapper -->
+    </div><!-- section-wrapper -->
+{% endblock %}

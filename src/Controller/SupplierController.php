@@ -16,7 +16,7 @@ class SupplierController extends AbstractController
     #[Route('/suppliers', name: 'supplier')]
     public function index(SupplierRepository $repository): Response
     {
-        $data = $repository->findAll();
+        $data = $repository->findBy([], ['createdAt' => 'DESC'], null, null);
         return $this->render('supplier/index.html.twig', [
             'data' => $data,
         ]);

@@ -16,7 +16,7 @@ class EntryInventoryController extends AbstractController
     #[Route('/entry/inventory', name: 'entry_inventory')]
     public function index(EntryInventoryRepository $repository): Response
     {
-        $data = $repository->findAll();
+        $data = $repository->findBy([], ['createdAt' => 'DESC'], null, null);
         return $this->render('entry_inventory/index.html.twig', [
             'data' => $data,
         ]);

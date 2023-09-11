@@ -16,7 +16,7 @@ class ProductController extends AbstractController
     #[Route('/products', name: 'product')]
     public function index(ProductRepository $repository): Response
     {
-        $data = $repository->findAll();
+        $data = $repository->findBy([], ['createdAt' => 'DESC'], null, null);
         return $this->render('product/index.html.twig', [
             'data' => $data,
         ]);

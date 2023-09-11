@@ -102,6 +102,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Order::class)]
     private Collection $orders;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Expense::class)]
+    private Collection $expenses;
+
 
 
     public function __construct()
@@ -111,6 +114,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->entryInventories = new ArrayCollection();
         $this->outInventories = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->expenses = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -450,6 +454,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($order->getAuthor() === $this) {
                 $order->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Expense>
+     */
+    public function getExpenses(): Collection
+    {
+        return $this->expenses;
+    }
+
+    public function addExpense(Expense $expense): static
+    {
+        if (!$this->expenses->contains($expense)) {
+            $this->expenses->add($expense);
+            $expense->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExpense(Expense $expense): static
+    {
+        if ($this->expenses->removeElement($expense)) {
+            // set the owning side to null (unless already changed)
+            if ($expense->getAuthor() === $this) {
+                $expense->setAuthor(null);
             }
         }
 

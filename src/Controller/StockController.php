@@ -12,7 +12,7 @@ class StockController extends AbstractController
     #[Route('/stock', name: 'stock')]
     public function index(ProductRepository $repository): Response
     {
-        $data = $repository->findAll();
+        $data = $repository->findBy([], ['createdAt' => 'DESC'], null, null);
         $sum = array_reduce($data, function ($total, $product){
             return $total + ($product->getStockValue());
         }, 0);

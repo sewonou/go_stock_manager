@@ -16,7 +16,7 @@ class OrderController extends AbstractController
     #[Route('/order', name: 'order')]
     public function index(OrderRepository $repository): Response
     {
-        $data = $repository->findAll();
+        $data = $repository->findBy([], ['createdAt' => 'DESC'], null, null);
         return $this->render('order/index.html.twig', [
             'data' => $data,
         ]);

@@ -144,7 +144,7 @@
         <div class="col-md col-lg-4">
             <div class="card card-revenue">
                 <p>Revenu du {{ "now"|date("F Y") }}</p>
-                {%  set percent =  ((stats.currentMonthAmountSale - stats.lastMonthAmountSale)/stats.lastMonthAmountSale)*100 | round  %}
+                {% set percent = stats.lastMonthAmountSale > 0 ? ((stats.currentMonthAmountSale - stats.lastMonthAmountSale) / stats.lastMonthAmountSale) * 100 | round : 0 %}
                 <h4>{{ stats.currentMonthAmountSale ~" F CFA" }} <span class="{% if (percent > 0) %}tx-success{% else %} tx-danger {% endif %}">{{ percent }}% </span></h4>
                 <label>Revenue Mois de {{ "now"|date_modify("-1 month")|date("F Y") }}: <span>{{ stats.lastMonthAmountSale ~" F CFA" }}</span></label>
             </div><!-- card -->
