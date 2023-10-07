@@ -39,7 +39,13 @@ class StatsService
         $totalOut = $this->getTotalOut();
         $totalInit = $this->getTotalInit();
         $currentMonthAmountCommand = $this->getCurrentMonthAmountCommand();
+        $lastMonthAmountCommand = $this->getlastMonthAmountCommand();
         $totalProductInStockValue = $this->getTotalProductInStockValue();
+        $lastMonthExpense = $this->getLastMonthExpense();
+        $currentMonthExpense = $this->getCurrentMonthExpense();
+
+        $currentMonthBenefit = $currentMonthAmountSale -($currentMonthAmountCommand + $currentMonthExpense);
+        $lastMonthBenefit = $lastMonthAmountSale -($lastMonthAmountCommand + $lastMonthExpense);
        /* $dailyAvgSale = $this->getDailySale();*/
 
 
@@ -63,7 +69,12 @@ class StatsService
             'totalOut',
             'totalInit',
             'currentMonthAmountCommand',
-            'totalProductInStockValue'
+            'totalProductInStockValue',
+            'lastMonthAmountCommand',
+            'lastMonthBenefit',
+            'lastMonthExpense',
+            'currentMonthExpense',
+            'currentMonthBenefit'
             //'dailyAvgSale'
         );
     }
@@ -119,6 +130,51 @@ class StatsService
             JOIN s.saleLines sl
             JOIN sl.product p
             WHERE s.createdAt between :startMonth and :endMonth'
+        )
+            ->setParameters(['startMonth'=>$startMonth, 'endMonth'=>$endMonth])
+            ->getSingleScalarResult();
+
+        if($result !== null ){
+            return $result;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getLastMonthExpense()
+    {
+        $startMonth = new \DateTime('first day of last month');
+        $startMonth->setTime(0, 0, 0);
+        $endMonth = new \DateTime('last day of last month');
+        $endMonth->setTime(23, 59, 59);
+
+        $result = $this->manager->createQuery(
+            'SELECT SUM(e.amount) as amount
+            FROM App\Entity\Expense e 
+            WHERE e.createdAt between :startMonth and :endMonth'
+        )
+            ->setParameters(['startMonth'=>$startMonth, 'endMonth'=>$endMonth])
+            ->getSingleScalarResult();
+
+        if($result !== null ){
+            return $result;
+        }else{
+            return 0;
+        }
+    }
+
+
+    public function getCurrentMonthExpense()
+    {
+        $startMonth = new \DateTime('first day of this month');
+        $startMonth->setTime(0, 0, 0);
+        $endMonth = new \DateTime('last day of this month');
+        $endMonth->setTime(23, 59, 59);
+
+        $result = $this->manager->createQuery(
+            'SELECT SUM(e.amount) as amount
+            FROM App\Entity\Expense e 
+            WHERE e.createdAt between :startMonth and :endMonth'
         )
             ->setParameters(['startMonth'=>$startMonth, 'endMonth'=>$endMonth])
             ->getSingleScalarResult();
@@ -414,6 +470,30 @@ class StatsService
         $startMonth = new \DateTime('first day of this month');
         $startMonth->setTime(0, 0, 0);
         $endMonth = new \DateTime('last day of this month');
+        $endMonth->setTime(23, 59, 59);
+
+        $result = $this->manager->createQuery(
+            'SELECT SUM(ol.qte*ol.purchasePrice) as amount
+            FROM App\Entity\Order o 
+            JOIN o.orderLines ol
+            JOIN ol.product p
+            WHERE o.createdAt between :startMonth and :endMonth'
+        )
+            ->setParameters(['startMonth'=>$startMonth, 'endMonth'=>$endMonth])
+            ->getSingleScalarResult();
+
+        if($result !== null ){
+            return $result;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getLastMonthAmountCommand()
+    {
+        $startMonth = new \DateTime('first day of last month');
+        $startMonth->setTime(0, 0, 0);
+        $endMonth = new \DateTime('last day of last month');
         $endMonth->setTime(23, 59, 59);
 
         $result = $this->manager->createQuery(

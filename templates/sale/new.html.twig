@@ -16,8 +16,20 @@
     </div>
 
 {% endblock %}
+
 {% block javascripts %}
 
     <script src="{{ asset('assets/js/getResult.js') }}"></script>
     <script src="{{ asset('assets/js/sale.js') }}"></script>
+    {#<script src="{{ asset('assets/lib/select2/js/select2.full.min.js') }}"></script>#}
+    <script>
+        // Select2 by showing the search
+        $('.select2-show-search').select2({
+            minimumResultsForSearch: ''
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {#<link href="{{ asset('assets/lib/select2/css/select2.min.css') }}" rel="stylesheet">#}
 {% endblock %}

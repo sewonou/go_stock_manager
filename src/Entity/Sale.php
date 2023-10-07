@@ -51,6 +51,7 @@ class Sale
     {
         if(empty($this->createdAt)){
             $this->createdAt = new \DateTimeImmutable();
+            $this->saleAt = new \DateTimeImmutable();
         }
         $this->updatedAt = new  \DateTimeImmutable();
     }

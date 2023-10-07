@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -29,6 +30,14 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findBySearch(SearchData $searchData){
+        return $this->createQueryBuilder('p')
+            ->where('p.codeBar LIKE :q')
+            ->setParameter('q', "%{$searchData->q}%")
+            ->getQuery()
+            ->getSingleResult();
     }
 
 //    /**

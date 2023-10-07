@@ -16,7 +16,7 @@ class SaleLine
     #[ORM\ManyToOne(inversedBy: 'saleLines')]
     private ?Sale $sale = null;
 
-    #[ORM\ManyToOne(inversedBy: 'qte')]
+    #[ORM\ManyToOne(inversedBy: 'saleLines')]
     private ?Product $product = null;
 
     #[ORM\Column(nullable: true)]

@@ -10,7 +10,7 @@
                     <th>Prix vente</th>
                     <th>Quantite</th>
                     <th>Montant</th>
-                    <th class="text-right">
+                    <th class="text-right" colspan="2">
                         <button class="btn btn-primary bd-0" id="add-saleLine" type="button">Ajouter un produit</button>
                         <input type="hidden" id="widgets-counter" value="0">
                     </th>
@@ -40,9 +40,9 @@
         <th colspan="7">{{ form_errors(form) }}</th>
     </tr>#}
     <tr class="sale-line" id="block_{{id}}">
-        <th scope="row">{{ id }}</th>
+        <th scope="row"><input type="hidden" value="{{ id }}"></th>
         <td class="code_bar">{{ form_widget(form.codeBar, {'attr':{'class': 'input-code-bar'}}) }}</td>
-        <td>{{ form_widget(form.product) }}</td>
+        <td>{{ form_widget(form.product, {'attr': {'class': 'select2-show-search'}}) }}</td>
         <td>{{ form_widget(form.stockQte, {'attr':{'disabled': 'disabled'}}) }}</td>
         <td>{{ form_widget(form.salePrice, {'attr':{'disabled': 'disabled'}}) }}</td>
         <td>{{ form_widget(form.qte) }}</td>

@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="line-height: 0.5 !important;">{{ form_label(form.q) }}</span>
+            </div>
+            {{ form_widget(form.q) }}
+            <span class="input-group-btn">
+                <button class="btn bd bd-l-0 bg-white tx-gray-600" type="button"><i class="fa fa-search"></i></button>
+            </span>
+        </div><!-- input-group -->
+{{ form_end(form) }}

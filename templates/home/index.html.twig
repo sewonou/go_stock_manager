@@ -72,40 +72,40 @@
     <div class="row row-statistics mg-b-30">
         <div class="col-md-5">
             <h1 class="tx-inverse tx-56 tx-lato tx-bold">{{ stats.currentWeekNumberOfSale }}</h1>
-            <h6 class="tx-15 tx-inverse tx-bold mg-b-20">Résumé des ventes de la semaine</h6>
-            <p>Ce tableau présente de résumé de votre chiffres d'affaire de ce mois</p>
+            <h6 class="tx-15 tx-inverse tx-bold mg-b-20">Récapitulatif du mois {{"now"|date("F Y") }}</h6>
+            <p>Ce tableau présente de résumé de votre chiffres d'affaire du mois  de {{"now"|date("F Y") }}</p>
         </div><!-- col-5 -->
         <div class="col-md-7 mg-t-20 mg-md-t-0">
             <h6 class="slim-card-title mg-b-15">Votre revenu</h6>
             <div class="row no-gutters">
                     <div class="col-sm-6">
                         <div class="card card-earning-summary">
-                            <h6>Revenue du jour</h6>
-                            <h1>{{ stats.currentDayAmountSale ~ " F CFA" }}</h1>
+                            <h6>Revenue des ventes </h6>
+                            <h1>{{ stats.currentMonthAmountSale ~ " F CFA" }}</h1>
                             <span>Basé sur les prix de ventes</span>
                         </div><!-- card -->
                     </div><!-- col-6 -->
                     <div class="col-sm-6">
                         <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t">
-                            <h6>Revenue de la semaine</h6>
-                            <h1>{{ stats.currentWeekAmountSale ~ " F CFA" }}</h1>
-                            <span>Basé sur les prix de ventes</span>
+                            <h6>Dépense total</h6>
+                            <h1>{{ stats.currentMonthExpense ~ " F CFA" }}</h1>
+                            <span>Basé sur les prix de dépenses</span>
                         </div><!-- card -->
                     </div><!-- col-6 -->
                 </div><!-- row -->
             <div class="row no-gutters">
                 <div class="col-sm-6">
                     <div class="card card-earning-summary">
-                        <h6>Revenue du mois</h6>
-                        <h1>{{ stats.currentMonthAmountSale ~ " F CFA" }}</h1>
-                        <span>Basé sur les prix de ventes</span>
+                        <h6>Valeur estimé des commandes</h6>
+                        <h1>{{ stats.currentMonthAmountCommand ~ " F CFA" }}</h1>
+                        <span>Basé sur les prix d'achats</span>
                     </div><!-- card -->
                 </div><!-- col-6 -->
                 <div class="col-sm-6">
                     <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t">
-                        <h6>Commande du mois</h6>
-                        <h1>{{ stats.currentMonthAmountCommand ~ " F CFA" }}</h1>
-                        <span>Basé sur les prix d'achats</span>
+                        <h6>Marge </h6>
+                        <h1>{{ stats.currentMonthBenefit ~ " F CFA" }}</h1>
+                        <span>Bénéfice du mois</span>
                     </div><!-- card -->
                 </div><!-- col-6 -->
             </div><!-- row -->
@@ -114,8 +114,58 @@
 
     </div><!-- row -->
 
+
+    <div class="row row-statistics mg-b-30">
+        <div class="col-md-5">
+            <h1 class="tx-inverse tx-56 tx-lato tx-bold">{{ stats.currentWeekNumberOfSale }}</h1>
+            <h6 class="tx-15 tx-inverse tx-bold mg-b-20">Récapitulatif du mois de {{"now"|date_modify("-1 month")|date("F Y") }}</h6>
+            <p>Ce tableau présente de résumé de votre chiffres d'affaire du mois  de {{"now"|date_modify("-1 month")|date("F Y") }}</p>
+        </div><!-- col-5 -->
+        <div class="col-md-7 mg-t-20 mg-md-t-0">
+            <h6 class="slim-card-title mg-b-15">Votre revenu</h6>
+            <div class="row no-gutters">
+                <div class="col-sm-6">
+                    <div class="card card-earning-summary">
+                        <h6>Revenue des ventes </h6>
+                        <h1>{{ stats.lastMonthAmountSale ~ " F CFA" }}</h1>
+                        <span>Basé sur les prix de ventes</span>
+                    </div><!-- card -->
+                </div><!-- col-6 -->
+                <div class="col-sm-6">
+                    <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t">
+                        <h6>Dépense total</h6>
+                        <h1>{{ stats.lastMonthExpense ~ " F CFA" }}</h1>
+                        <span>Basé sur les prix de dépenses</span>
+                    </div><!-- card -->
+                </div><!-- col-6 -->
+            </div><!-- row -->
+            <div class="row no-gutters">
+                <div class="col-sm-6">
+                    <div class="card card-earning-summary">
+                        <h6>Valeur estimé des commandes</h6>
+                        <h1>{{ stats.lastMonthAmountCommand ~ " F CFA" }}</h1>
+                        <span>Basé sur les prix d'achats</span>
+                    </div><!-- card -->
+                </div><!-- col-6 -->
+                <div class="col-sm-6">
+                    <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t">
+                        <h6>Marge </h6>
+                        <h1>{{ stats.lastMonthBenefit ~ " F CFA" }}</h1>
+                        <span>Bénéfice du mois</span>
+                    </div><!-- card -->
+                </div><!-- col-6 -->
+            </div><!-- row -->
+        </div><!-- col-7 -->
+
+
+    </div><!-- row -->
     <hr>
-    <div class="row no-gutters dashboard-chart-one">
+    <div class="nav-statistics-wrapper">
+        <nav class="nav">
+            <a href="" class="nav-link active">Récapitulatif du stock</a>
+        </nav>
+    </div><!-- nav-statistics-wrapper -->
+    <div class="row no-gutters dashboard-chart-one mg-t-40">
         <div class="col-md-4 col-lg">
             <div class="card card-total">
                 <div>
@@ -151,12 +201,12 @@
         </div><!-- col-4 -->
     </div><!-- row -->
 
-    <hr>
+
 
     <div class="report-summary-header">
         <div>
             <h4 class="tx-inverse mg-b-3">Les produits les plus demandées</h4>
-            <p class="mg-b-0"><i class="icon ion-calendar mg-r-3"></i> {{"now"|date("F Y")~" - "~"now"|date_modify("-1 month")|date("F Y") }}</p>
+            <p class="mg-b-0"><i class="icon ion-calendar mg-r-3"></i> {{"now"|date("F Y") }}</p>
         </div>
         <div>
             <a href="#" class="btn btn-secondary">Top Produits Vendus</a>
@@ -183,40 +233,7 @@
             </div><!-- card -->
         </div><!-- col-4 -->
         {% endfor %}
-        {#<div class="col-md-6 col-lg-4 mg-t-20 mg-md-t-0">
-            <div class="card card-popular-product">
-                <label class="prod-id">Product ID: #PD-1753</label>
-                <h5 class="prod-name"><a href="">US KS-5 Junior Lite DVD Karaoke 9500</a></h5>
-                <p class="prod-by">By: <a href="">ThmPxls Security</a></p>
-                <div class="row">
-                    <div class="col-5">
-                        <h1>1862</h1>
-                        <p>Total Sales</p>
-                    </div><!-- col -->
-                    <div class="col-7">
-                        <h1>$13,113</h1>
-                        <p>Earnings</p>
-                    </div><!-- col -->
-                </div><!-- row -->
-            </div><!-- card -->
-        </div><!-- col-4 -->
-        <div class="col-md-6 col-lg-4 mg-t-20 mg-lg-t-0">
-            <div class="card card-popular-product">
-                <label class="prod-id">Product ID: #PD-1754</label>
-                <h5 class="prod-name"><a href="">US 360 Home Security IP Camera Night</a></h5>
-                <p class="prod-by">By: <a href="">ThmPxls Digital</a></p>
-                <div class="row">
-                    <div class="col-5">
-                        <h1>1799</h1>
-                        <p>Total Sales</p>
-                    </div><!-- col -->
-                    <div class="col-7">
-                        <h1>$11,091</h1>
-                        <p>Earnings</p>
-                    </div><!-- col -->
-                </div><!-- row -->
-            </div><!-- card -->
-        </div><!-- col-4 #}{#-->#}
+
 
     </div><!-- row -->
 

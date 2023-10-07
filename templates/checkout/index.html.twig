@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Caisse' %}
+
+{% block body %}
+
+    <div class="slim-pageheader">
+        <ol class="breadcrumb slim-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Caisse</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Vente</li>
+        </ol>
+        <h6 class="slim-pagetitle">Caisse des ventes</h6>
+    </div><!-- slim-pageheader -->
+    <div class="section-wrapper mg-b-20">
+        <div class="flex-column justify-content-center">
+            <div class="flex-column">
+                {% include 'components/_search_data.html.twig' with { form: form } only  %}
+            </div>
+        </div>
+        <div class="row mg-t-20">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-colored table-purple">
+                                <thead>
+                                <tr>
+                                    <th class="wd-5p">ID</th>
+                                    <th class="wd-35p">Désignation produit</th>
+                                    <th class="wd-15p">Qte Disponible</th>
+                                    <th class="wd-15p">Qte vendu</th>
+                                    <th class="wd-15p">Prix de vente</th>
+                                    <th class="wd-15p">Total</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% set total = 0 %}
+                                {% if app.session.has('cart') %}
+                                    {# Vérifiez d'abord si la clé 'produits' existe dans la session #}
+                                    {% set products = app.session.get('cart') %}
+
+                                        {% for item in products %}
+                                            <tr>
+                                                <th scope="row">{{ loop.index }}</th>
+                                                <td>{{ item.product.name }}</td>
+                                                <td>{{ item.product.stockQte }}</td>
+                                                <td>{{ item.quantity }}</td>
+                                                <td>{{ item.product.salePrice }}</td>
+                                                {% set amount = item.quantity * item.product.salePrice %}
+                                                <td>{{ amount }}</td>
+                                            </tr>
+                                            {% set total = total + amount %}
+                                        {% endfor %}
+
+                                {% else %}
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td colspan="5">
+                                            <p>Aucun produit trouvé dans la session.</p>
+                                        </td>
+                                    </tr>
+
+                                {% endif %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td colspan="4">Montant Total</td>
+                                        <td >{{ total }}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div><!-- table-responsive -->
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-lg-4"><a href="{{ path('checkout_sale') }}" class="btn btn-success">Liste des vente</a></div>
+                            <div class="col-lg-4"><a href="{{ path('remove_basket') }}" class="btn btn-danger">Vider le panier</a></div>
+                            <div class="col-lg-4"><a href="{{ path('checkout_save') }}" class="btn btn-primary">vendre</a></div>
+                        </div>
+
+                    </div>
+                </div><!-- pd-y-50 -->
+            </div>
+        </div>
+    </div><!-- section-wrapper -->
+{% endblock %}

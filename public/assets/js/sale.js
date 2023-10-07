@@ -10,7 +10,7 @@ $('#add-saleLine').click(function(){
     const saleLines = document.getElementsByClassName("sale-line");
 
     // J'injecte ce code au sein de la div
-    //console.log(tmpl)  ;
+    console.log(tmpl)  ;
     $('#saleLine').append(tmpl);
     Array.from(saleLines).forEach(saleLine => {
 

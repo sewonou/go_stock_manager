@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ExpenseRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Expense
 {
     #[ORM\Id]
@@ -32,6 +33,15 @@ class Expense
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initialize()
+    {
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 
     public function getDescription(): ?string
