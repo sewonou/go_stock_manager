@@ -36,13 +36,13 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             {% endfor %}
-                            </div>
                         </div>
+                </div>
                     {% endfor %}
                     {% block body %}{% endblock %}
-                </div>
-
             </div>
+
+
         {{ include('_partials/_footer.html.twig') }}
         <script src="{{ asset('assets/lib/jquery/js/jquery.js') }}"></script>
         <script src="{{ asset('assets/lib/popper.js/js/popper.js') }}"></script>

@@ -87,3 +87,19 @@
         </div>
     </div><!-- section-wrapper -->
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        // Attendre que la page soit entièrement chargée
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sélectionner le champ de texte
+            var search_q = document.getElementById("search_q");
+
+            // Effacer le champ de texte
+            search_q.value = "";
+
+            // Mettre le focus sur le champ de texte
+            search_q.focus();
+        });
+    </script>
+{% endblock %}

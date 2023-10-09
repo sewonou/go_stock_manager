@@ -30,25 +30,30 @@ class CheckoutController extends AbstractController
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $product = $productRepository->findBySearch($searchData);
-            $id =  $product->getId();
-            //dd($product);
-            $cart = $session->get('cart', []);
-            if(!empty($cart[$id])){
 
-                $cart[$id]['quantity']++;
+            if(empty($productRepository->findBySearch($searchData))){
+                $this->addFlash('danger', "Aucun prouduit n'est enregistrer sous ce code");
+                return $this->redirectToroute('checkout');
             }else{
-                $cart[$id] =[
-                    'product' => $product,
-                    'quantity' => 1,
-                ];
+                $product = $productRepository->findBySearch($searchData);
+                $id =  $product->getId();
+                //dd($product);
+                $cart = $session->get('cart', []);
+                if(!empty($cart[$id])){
+
+                    $cart[$id]['quantity']++;
+                }else{
+                    $cart[$id] =[
+                        'product' => $product,
+                        'quantity' => 1,
+                    ];
+                }
+                $session->set('cart', $cart);
+
+                return $this->render('checkout/index.html.twig', [
+                    'form' => $form->createView(),
+                ]);
             }
-            $session->set('cart', $cart);
-
-            return $this->render('checkout/index.html.twig', [
-                'form' => $form->createView(),
-            ]);
-
         }
         return $this->render('checkout/index.html.twig', [
             'form' => $form->createView(),

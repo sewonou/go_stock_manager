@@ -14,17 +14,18 @@
                     <span>Caisse</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('sale') }}">
+            <li class="nav-item with-sub">
+                <a class="nav-link" href="#" data-toggle="dropdown">
                     <i class="icon ion-ios-cart"></i>
-                    <span>Ventes</span>
+                    <span>Manager</span>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('order') }}">
-                    <i class="icon ion-ios-book-outline"></i>
-                    <span>Commandes</span>
-                </a>
+                <div class="sub-item">
+                    <ul>
+                        <li><a href="{{ path('sale') }}">Ventes</a></li>
+                        <li><a href="{{ path('order') }}">Commandes</a></li>
+
+                    </ul>
+                </div><!-- dropdown-menu -->
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('expense') }}">

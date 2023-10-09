@@ -35,9 +35,9 @@ class ProductRepository extends ServiceEntityRepository
     public function findBySearch(SearchData $searchData){
         return $this->createQueryBuilder('p')
             ->where('p.codeBar LIKE :q')
-            ->setParameter('q', "%{$searchData->q}%")
+            ->setParameter('q', "{$searchData->q}")
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 
 //    /**
